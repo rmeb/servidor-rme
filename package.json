@@ -1,0 +1,9 @@
+{
+  "name": "servidor-rme",
+  "version": "0.1.0",
+  "description": "Servidor de recetas medicas",
+  "main": "index.js",
+  "repository": "git@github.com:rmeb/servidor-rme.git",
+  "author": "Andres Santander",
+  "license": "MIT"
+}
