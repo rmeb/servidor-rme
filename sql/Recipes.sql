@@ -1,0 +1,4 @@
+CREATE TABLE recipes (
+  id TEXT PRIMARY KEY,
+  xml TEXT NOT NULL
+);
