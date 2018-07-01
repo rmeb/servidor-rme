@@ -8,10 +8,10 @@ function saveRecipe(req, res) {
   console.log('[Recipe.saveRecipe]', req.body)
   let {receta, id} = req.body
 
-  if (!receta.length || receta.length === 0) {
+  if (!receta || receta.length === 0) {
     return fail(res, 'Parameter missing or invalid')
   }
-  if (!id.length || id.length === 0) {
+  if (!id || id.length === 0) {
     return fail(res, 'Parameter missing or invalid')
   }
 
