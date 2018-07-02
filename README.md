@@ -9,7 +9,7 @@ Para guardar y recuperar una receta se usa el RUN del paciente y un PIN (Persona
 
 `POST /receta`
 
-Permite guardar una receta 
+Permite guardar una receta
 
 #### Body
 ```
@@ -57,6 +57,12 @@ El id es: `sha3(<run paciente>:<pin>)`
 ```
 yarn install
 ```
+
+## Environment
+```
+export DATABASE_URL="postgres://user:password@ip:port/database"
+```
+
 ## Start Server (port 4000)
 ```
 yarn start
