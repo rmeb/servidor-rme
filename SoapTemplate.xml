@@ -1,0 +1,17 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.signserver.esign.com/">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <ws:intercambiaDoc>
+      <Encabezado>
+        <User>{RUN}</User>
+        <Password>{CLAVE}</Password>
+        <NombreConfiguracion>{RUN}</NombreConfiguracion>
+      </Encabezado>
+      <Parametro>
+        <Documento>{DOCUMENT}</Documento>
+        <NombreDocumento></NombreDocumento>
+        <MetaData></MetaData>
+      </Parametro>
+    </ws:intercambiaDoc>
+  </soapenv:Body>
+</soapenv:Envelope>

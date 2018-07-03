@@ -1,12 +1,13 @@
 const {success, fail, error} = require('../utils/Reply')
 const db = require('../db/Postgresql')
+const {sign} = require('../lib/SignService')
 
 const SAVE = 'INSERT INTO recipes (id, xml) VALUES ($1, $2)'
 const GET = 'SELECT xml FROM recipes WHERE id = $1'
 
 function saveRecipe(req, res) {
-  console.log('[Recipe.saveRecipe]', req.body)
-  let {receta, id} = req.body
+  console.log('[Recipe.saveRecipe]')
+  let {receta, id, credentials} = req.body
 
   if (!receta || receta.length === 0) {
     return fail(res, 'Parameter missing or invalid')
@@ -14,16 +15,21 @@ function saveRecipe(req, res) {
   if (!id || id.length === 0) {
     return fail(res, 'Parameter missing or invalid')
   }
+  if (!credentials) {
+    return fail(res, 'Parameter missing or invalid')
+  }
 
-  db.query(SAVE, [id, receta]).then(result => {
+  sign(receta, credentials).then(signedXml => {
+    return db.query(SAVE, [id, signedXml])
+  }).then(result => {
     console.log('[Recipe.saveRecipe] Receta guardada.')
     success(res, 'Ok.')
   }).catch(e => {
-    console.error('[ERROR][Recipe.saveRecipe] ' + e.code + '::' + e.detail)
-    if (e.code === '23505') {
+    console.log(e)
+    if (e.code && e.code === '23505') {
       return fail(res, 'El id especificado ya existe')
     }
-    error(res, 'Error Interno ' + e.code)
+    error(res, 'Error Interno')
   })
 }
 
