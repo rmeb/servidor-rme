@@ -25,11 +25,11 @@ function saveRecipe(req, res) {
     console.log('[Recipe.saveRecipe] Receta guardada.')
     success(res, 'Ok.')
   }).catch(e => {
-    console.log(e)
+    console.log('[ERROR][Recipe.saveRecipe]', e)
     if (e.code && e.code === '23505') {
       return fail(res, 'El id especificado ya existe')
     }
-    error(res, 'Error Interno')
+    error(res, e.message ? e.message : 'Error Interno')
   })
 }
 
@@ -49,7 +49,7 @@ function getRecipe(req, res) {
       receta: result.rows[0].xml
     })
   }).catch(e => {
-    console.error('[ERROR][Recipe.saveRecipe] ' + e.code + '::' + e.detail)
+    console.error('[ERROR][Recipe.getRecipe] ' + e.code + '::' + e.detail)
     error(res, 'Error Interno ' + e.code)
   })
 }
