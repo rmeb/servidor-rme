@@ -19,8 +19,12 @@ function saveRecipe(req, res) {
     return fail(res, 'Parameter missing or invalid')
   }
 
-  sign(receta, credentials).then(signedXml => {
-    return db.query(SAVE, [id, signedXml])
+  sign(receta, credentials).then(result => {
+    if (result.code === 'OK') {
+      return db.query(SAVE, [id, result.document])
+    } else {
+      error(res, result.message)
+    }
   }).then(result => {
     console.log('[Recipe.saveRecipe] Receta guardada.')
     success(res, 'Ok.')
